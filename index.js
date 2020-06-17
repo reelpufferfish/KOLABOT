@@ -1,18 +1,35 @@
 const Discord = require('discord.js');
 var { prefix, token } = require('./config.json');
 const client = new Discord.Client();
+const version = 1.1
 
-var songRandom
+var songId = -1
+
 const songs = [
     'KOCK_MUSIC/a.mp3', 'KOCK_MUSIC/b.mp3', 'KOCK_MUSIC/c.mp3', 'KOCK_MUSIC/d.mp3', 'KOCK_MUSIC/e.mp3', 'KOCK_MUSIC/f.mp3', 'KOCK_MUSIC/g.mp3', 'KOCK_MUSIC/h.mp3', 'KOCK_MUSIC/i.mp3', 'KOCK_MUSIC/j.mp3']
 
 client.once('ready', () => {
+    //client.user.setStatus('dnd')
     client.user.setActivity('kolabot help',{type: 'PLAYING'});
     console.log('Ready!');
 });
 
 client.on('message', async message => {
-    var isReady = true;
+    if (message.content === 'hello baby') {
+        message.reply('what\'s up sexy')
+    } else if (message.content === 'nigga') {
+        message.react('😳')
+    } else if (message.content === 'sex') {
+        message.react('👀')
+    } else if (message.content === 'fuck') {
+        message.channel.send('me')
+    } else if (message.content === 'komaeda') {
+        message.channel.send('don\'t mention that name')
+    } else if (message.content === 'kolabot') {
+        message.reply('that\'s me')
+    } else if (message.content === 'KOCK') {
+        message.channel.send('KOCK is the world.')
+    }
 
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
@@ -26,53 +43,71 @@ client.on('message', async message => {
         My prefix in this GANGSTA server is ${prefix}.
         \n__***KOLARADIO***__
         Use KOLARADIO to start the KOCK Radio.
-        ~~Use nowplaying to see what KOCK song is playing.~~
+        Use nowplaying to see what KOCK song is playing.
         Use KOLASONG to play a KOCK song.
+        Use disconnect to disconnect.
         \n***KOLA COMMANDS:***
         help - displays this menu
+        info/information - show's bot information and creator
+        github - view KOLABOT source
         server - displays server info
         user-info - displays user info (why the fuck do i need to put descriptions)
-        avatar - display user avatar
-        purge - bulk delete messages`)
+        avatar - display a user's profile picture
+        purge - bulk delete messages (admin only)`)
 
         //KOLARADIO
     } else if (message.content === `${prefix}KOLARADIO`) {
         if (message.member.voice.channel) {
             function playSong() {
-                const songId = Math.floor(Math.random() * songs.length);
+                songId = Math.floor(Math.random() * songs.length);
                 connection.play(songs[songId]).on("finish", playSong);
             }
 
             const connection = await message.member.voice.channel.join();
             playSong()
-        } 
+        }
+
+    } else if (message.content === `${prefix}version`) {
+        message.channel.send('KOLABOT is on version ' + version)
+    
+
+    } else if (message.content === `${prefix}github`) {
+        message.channel.send('https://github.com/reelpufferfish/KOLABOT')
+    
+
+    } else if (message.content === `${prefix}info`) {
+        message.channel.send('This is KOLABOT made by Pufferfish.\nDiscord: pufferfish#5841 server: https://discord.com/invite/KVvVVWE\nFollow @reelpufferfish on Twitter\nbit.ly/pufferfish69 - YouTube\n\nAll music in this bot is made by KOCK (Soundcloud/KOCKISTHEWORLD) and KOLABOT has all permission to use the music provided.\nGet in contact with the dev Pufferfish via Discord.')
 
 
     } else if (message.content === `${prefix}disconnect`) {
         var voiceChannel = message.member.voice.channel;
         voiceChannel.leave();
+        songId = -1
+
 
     } else if (message.content === `${prefix}nowplaying`) {
-        console.log(songRandom)
-        if (songRandom === 1) {
+        if (songId === -1) {
+            message.channel.send('Nothing is playing rn loser')
+        }
+        if (songId === 0) {
             message.channel.send('Now playing THE KOCK CYPHER™.')
-        } else if (songRandom === 2) {
+        } else if (songId === 1) {
             message.channel.send('Now playing HOES MAD.')
-        } else if (songRandom === 3) {
+        } else if (songId === 2) {
             message.channel.send('Now playing SNOWS MAD.')
-        } else if (songRandom === 4) {
+        } else if (songId === 3) {
             message.channel.send('Now playing JOES MAD.')
-        } else if (songRandom === 5) {
+        } else if (songId === 4) {
             message.channel.send('Now playing KOCK DESTROYS RACISM')
-        } else if (songRandom === 6) {
+        } else if (songId === 5) {
             message.channel.send('Now playing COOMER CHRISTMAS')
-        } else if (songRandom === 7) {
+        } else if (songId === 6) {
             message.channel.send('Now playing GOODBYE JOE')
-        } else if (songRandom === 8) {
+        } else if (songId === 7) {
             message.channel.send('Now playing DEEPTHROAT MY DEAGLE')
-        } else if (songRandom === 9) {
+        } else if (songId === 8) {
             message.channel.send('Now playing CALL YOU ON DA FLIPPHONE')
-        } else if (songRandom === 10) {
+        } else if (songId === 9) {
             message.channel.send('Now playing FUCK OMAR')
         }
 
@@ -90,10 +125,11 @@ client.on('message', async message => {
 
     } else if (command === "kolasong") {
         if (!args.length) {
-            return message.channel.send("These are the tracks KOLABOT can play.\n1. THE KOCK CYPHER™.\n2. HOES MAD.\n3. SNOWS MAD.\n4. JOES MAD.\n5. KOCK DESTROYS RACISM\n6. COOMER CHRISTMAS\n7. GOODBYE JOE\n8. DEEPTHROAT MY DEAGLE\n9. CALL YOU ON DA FLIPPHONE\n10. FUCK OMAR");
+            return message.channel.send("These are the tracks KOLABOT can play. Select a track by using command \"kolabot [track number]\".\n> 1. THE KOCK CYPHER™.\n> 2. HOES MAD.\n> 3. SNOWS MAD.\n> 4. JOES MAD.\n> 5. KOCK DESTROYS RACISM\n> 6. COOMER CHRISTMAS\n> 7. GOODBYE JOE\n> 8. DEEPTHROAT MY DEAGLE\n> 9. CALL YOU ON DA FLIPPHONE\n> 10. FUCK OMAR");
         }
         else if (args[0] === '1') {
             if (message.member.voice.channel) {
+                songId = 0
                 message.channel.send('Now playing THE KOCK CYPHER™.')
                 const connection = await message.member.voice.channel.join();
                 const dispatcher = connection.play('KOCK_MUSIC/a.mp3')
@@ -110,6 +146,7 @@ client.on('message', async message => {
         }
         else if (args[0] === '2') {
             if (message.member.voice.channel) {
+                songId = 1
                 message.channel.send('Now playing HOES MAD.')
                 const connection = await message.member.voice.channel.join();
                 const dispatcher = connection.play('KOCK_MUSIC/b.mp3')
@@ -126,6 +163,7 @@ client.on('message', async message => {
         }
         else if (args[0] === '3') {
             if (message.member.voice.channel) {
+                songId = 2
                 message.channel.send('Now playing SNOWS MAD.')
                 const connection = await message.member.voice.channel.join();
                 const dispatcher = connection.play('KOCK_MUSIC/c.mp3')
@@ -142,6 +180,7 @@ client.on('message', async message => {
         }
         else if (args[0] === '4') {
             if (message.member.voice.channel) {
+                songId = 3
                 message.channel.send('Now playing JOES MAD.')
                 const connection = await message.member.voice.channel.join();
                 const dispatcher = connection.play('KOCK_MUSIC/d.mp3')
@@ -158,6 +197,7 @@ client.on('message', async message => {
         }
         else if (args[0] === '5') {
             if (message.member.voice.channel) {
+                songId = 4
                 message.channel.send('Now playing KOCK DESTROYS RACISM')
                 const connection = await message.member.voice.channel.join();
                 const dispatcher = connection.play('KOCK_MUSIC/e.mp3')
@@ -174,6 +214,7 @@ client.on('message', async message => {
         }
         else if (args[0] === '6') {
             if (message.member.voice.channel) {
+                songId = 5
                 message.channel.send('Now playing COOMER CHRISTMAS')
                 const connection = await message.member.voice.channel.join();
                 const dispatcher = connection.play('KOCK_MUSIC/f.mp3')
@@ -190,6 +231,7 @@ client.on('message', async message => {
         }
         else if (args[0] === '7') {
             if (message.member.voice.channel) {
+                songId = 6
                 message.channel.send('Now playing GOODBYE JOE')
                 const connection = await message.member.voice.channel.join();
                 const dispatcher = connection.play('KOCK_MUSIC/g.mp3')
@@ -206,6 +248,7 @@ client.on('message', async message => {
         }
         else if (args[0] === '8') {
             if (message.member.voice.channel) {
+                songId = 7
                 message.channel.send('Now playing DEEPTHROAT MY DEAGLE')
                 const connection = await message.member.voice.channel.join();
                 const dispatcher = connection.play('KOCK_MUSIC/h.mp3')
@@ -222,6 +265,7 @@ client.on('message', async message => {
         }
         else if (args[0] === '9') {
             if (message.member.voice.channel) {
+                songId = 8
                 message.channel.send('now playing CALL YOU ON DA FLIPPHONE')
                 const connection = await message.member.voice.channel.join();
                 const dispatcher = connection.play('KOCK_MUSIC/i.mp3')
@@ -238,6 +282,7 @@ client.on('message', async message => {
         }
         else if (args[0] === '10') {
             if (message.member.voice.channel) {
+                songId = 9
                 message.channel.send('now playing FUCK OMAR')
                 const connection = await message.member.voice.channel.join();
                 const dispatcher = connection.play('KOCK_MUSIC/j.mp3')
@@ -265,7 +310,7 @@ client.on('message', async message => {
         message.channel.send(avatarList);
 
 
-    } else if (command === 'purge') {
+    } else if (message.member.hasPermission("ADMINISTRATOR") && command === 'purge') {
         const amount = parseInt(args[0]);
 
         if (isNaN(amount)) {
@@ -277,7 +322,7 @@ client.on('message', async message => {
         message.channel.bulkDelete(amount, true).catch(err => {
             console.error(err);
             message.channel.send('sry these messages are TOO POWERFUL FOR KOLABOT')
-        });
+        })
     }
 });
 
