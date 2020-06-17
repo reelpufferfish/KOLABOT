@@ -2,6 +2,8 @@
 A Discord bot for the YUNG KOLA brand and the KOCK music group. (This bot contains explicit content.)  This bot plays songs from KOCK and is also an autoresponder.
 
 # Requirements to run KOLABOT (for Windows)
+Discord.js (npm install discord.js)
+
 Node.js (https://nodejs.org/en/)
 
 FFmpeg (http://blog.gregzaal.com/how-to-install-ffmpeg-on-windows/)
