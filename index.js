@@ -7,6 +7,7 @@ const songs = [
     'KOCK_MUSIC/a.mp3', 'KOCK_MUSIC/b.mp3', 'KOCK_MUSIC/c.mp3', 'KOCK_MUSIC/d.mp3', 'KOCK_MUSIC/e.mp3', 'KOCK_MUSIC/f.mp3', 'KOCK_MUSIC/g.mp3', 'KOCK_MUSIC/h.mp3', 'KOCK_MUSIC/i.mp3', 'KOCK_MUSIC/j.mp3']
 
 client.once('ready', () => {
+    client.user.setActivity('kolabot help',{type: 'PLAYING'});
     console.log('Ready!');
 });
 
@@ -25,7 +26,7 @@ client.on('message', async message => {
         My prefix in this GANGSTA server is ${prefix}.
         \n__***KOLARADIO***__
         Use KOLARADIO to start the KOCK Radio.
-        Use nowplaying to see what KOCK song is playing.
+        ~~Use nowplaying to see what KOCK song is playing.~~
         Use KOLASONG to play a KOCK song.
         \n***KOLA COMMANDS:***
         help - displays this menu
