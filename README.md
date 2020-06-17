@@ -1,5 +1,5 @@
 # KOLABOT
-A Discord bot for the YUNG KOLA brand and the KOCK music artist. (This bot contains explicit content.)
+A Discord bot for the YUNG KOLA brand and the KOCK music group. (This bot contains explicit content.)
 
 # Requirements to run KOLABOT (for Windows)
 Node.js (https://nodejs.org/en/)
@@ -12,6 +12,8 @@ opusscript (npm install opusscript)
 
 # Setting up KOLABOT
 Place your token in [TOKEN HERE] in the config.json file.
+
+Extract the contents of `KOCK_MUSIC` in a folder called `KOCK_MUSIC`.
 
 I included a nifty PowerShell file that you can easily click to start KOLABOT.
 
