@@ -6,6 +6,10 @@ Node.js (https://nodejs.org/en/)
 
 FFmpeg (http://blog.gregzaal.com/how-to-install-ffmpeg-on-windows/)
 
+Opus (npm install opus)
+
+opusscript (npm install opusscript)
+
 # Setting up KOLABOT
 Place your token in [TOKEN HERE] in the config.json file.
 
