@@ -1,5 +1,5 @@
 # KOLABOT
-A Discord bot for the YUNG KOLA brand and the KOCK music artist.
+A Discord bot for the YUNG KOLA brand and the KOCK music artist. (This bot contains explicit content.)
 
 # Requirements to run KOLABOT (for Windows)
 Node.js (https://nodejs.org/en/)
